@@ -1,0 +1,11 @@
+#!/bin/bash
+
+DIR=$(dirname "$3")
+PARAMS=$(echo $@ | sed s!"$DIR"/!!g)
+
+if [ $DIR = '.' ]
+then
+	docker run --rm -i -v `pwd`:/source -w /source conversionmedia/node-linter jshint $@
+else
+	docker run --rm -i -v $DIR:/source -w /source conversionmedia/node-linter jshint $PARAMS
+fi

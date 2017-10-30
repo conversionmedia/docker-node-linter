@@ -1,0 +1,5 @@
+#!/bin/bash
+
+DIR=$(dirname "$5")
+PARAMS=$(echo $@ | sed s!"$DIR"/!!g)
+docker run --rm -v /private$DIR:/source -w /source conversionmedia/node-linter sass-lint $PARAMS

@@ -1,0 +1,11 @@
+#!/bin/bash
+
+DIR=$(dirname "$2")
+PARAMS=$(echo $@ | sed s!"$DIR"/!!g)
+
+if [ $DIR = '.' ]
+then
+	docker run --rm conversionmedia/node-linter csslint $@
+else
+	docker run --rm -v /private$DIR:/source -w /source conversionmedia/node-linter csslint $PARAMS
+fi
